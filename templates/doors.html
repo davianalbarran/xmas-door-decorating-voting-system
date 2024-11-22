@@ -1,0 +1,102 @@
+<!-- templates/doors.html -->
+{% for door in doors %}
+<article class="door-entry">
+  <div class="door-content">
+    <div class="door-header">
+      <h2>{{door.title}}</h2>
+      <span class="door-badge">Door #{{door.number}}</span>
+    </div>
+    <div class="vote-section">
+      <span class="vote-count">{{door.votes}} votes</span>
+      <a href="/vote/{{door.number}}" class="vote-button">Vote</a>
+    </div>
+  </div>
+</article>
+{% endfor %}
+
+<style>
+  .door-entry {
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--standard-border-radius);
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease;
+  }
+
+  .door-entry:hover {
+    transform: translateY(-2px);
+  }
+
+  .door-content {
+    padding: 1rem;
+  }
+
+  .door-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .door-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text);
+  }
+
+  .door-badge {
+    background-color: var(--accent-bg);
+    color: var(--text);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--standard-border-radius);
+    font-size: 0.9rem;
+  }
+
+  .vote-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .vote-count {
+    font-size: 1.1rem;
+    color: var(--text-light);
+  }
+
+  .vote-button {
+    background-color: var(--accent);
+    color: var(--accent-text);
+    border: 1px solid var(--accent);
+    padding: 0.5rem 1rem;
+    border-radius: var(--standard-border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .vote-button:hover {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+
+  .vote-button:visited {
+    color: var(--accent-text)
+  }
+
+  @media only screen and (max-width: 720px) {
+    .door-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    
+    .vote-section {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+    
+    .vote-count {
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FastAPI + HTMX</title>
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+</head>
+<header>
+    <h1>MNJS Door Decorating Contest 2024</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/add-door">Add Door</a></li>
+        <li><a href="/save-votes">Save Votes</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <article class="error-message">
+      <h2>Oops!</h2>
+      <p>{{message}}</p>
+      <div class="return-home">
+        <a href="/" class="button">Return Home</a>
+      </div>
+    </article>
+  </main>
+  
+  <style>
+    :root {
+    /* Christmas red and green base */
+    --accent: #D42426;         /* Bright Christmas red */
+    --accent-hover: #E84749;   /* Lighter Christmas red */
+    --accent-bg: #F8F0F0;      /* Very light red tint for backgrounds */
+    --bg: #FFFFFF;             /* Clean white like snow */
+    --text: #2C363F;           /* Dark gray with slight blue tint */
+    --text-light: #4A5A64;     /* Lighter version of text color */
+    --border: #D42426;         /* Christmas red for borders */
+    --accent-text: #FFFFFF;    /* White text for accent backgrounds */
+    --code: #146B3A;           /* Christmas green */
+    --preformatted: #2C363F;   /* Same as text */
+    --marked: #FFC93C;         /* Gold for marked text */
+    --disabled: #E8E8E8;       /* Light gray for disabled elements */
+}
+
+/* Dark mode Christmas theme */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --bg: #1C2834;           /* Dark blue-gray background */
+        --accent-bg: #2C363F;    /* Slightly lighter than bg */
+        --text: #F0F0F0;         /* Off-white text */
+        --text-light: #B8B8B8;   /* Light gray text */
+        --accent: #D42426;       /* Keep the Christmas red */
+        --accent-hover: #E84749; /* Lighter Christmas red */
+        --accent-text: #FFFFFF;  /* White text */
+        --code: #2ECC71;         /* Brighter green for dark mode */
+        --preformatted: #E0E0E0; /* Light gray for preformatted */
+        --disabled: #242424;     /* Dark gray for disabled */
+        --border: #D42426;       /* Keep the Christmas red */
+    }
+}
+
+/* Add a subtle candy cane pattern to the header */
+header {
+    background-image: linear-gradient(
+        45deg,
+        var(--accent-bg) 25%,
+        transparent 25%,
+        transparent 50%,
+        var(--accent-bg) 50%,
+        var(--accent-bg) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 50px 50px;
+    background-blend-mode: soft-light;
+}
+  header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background-color: var(--accent-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  
+  header h1 {
+    color: var(--text);
+    margin: 0 0 2rem 0;
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  
+  nav {
+    padding: 0;
+    margin-bottom: 0;
+  }
+  
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  nav a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: var(--text);
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--standard-border-radius);
+    transition: all 0.2s ease;
+    min-width: 100px;
+  }
+  
+  nav a:hover {
+    background-color: var(--accent);
+    color: var(--accent-text);
+    border-color: var(--accent);
+  }
+  
+  main {
+    padding: 2rem 1rem;
+  }
+  
+  @media only screen and (max-width: 720px) {
+    header h1 {
+      font-size: 2rem;
+    }
+    
+    nav ul {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    nav a {
+      display: block;
+      text-align: center;
+    }
+  }
+  .error-message {
+    text-align: center;
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--accent-bg);
+    border-radius: var(--standard-border-radius);
+  }
+  
+  .error-message h2 {
+    color: var(--accent);
+    margin-top: 0;
+  }
+  
+  .return-home {
+    margin-top: 2rem;
+  }
+  </style>
+</html>
