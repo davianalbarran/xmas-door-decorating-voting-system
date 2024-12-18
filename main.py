@@ -81,12 +81,21 @@ async def add_door(
     )
 
 @app.post("/add-doors")
-async def add_doors(door_ids: List[int]):
+async def add_doors(
+    request: Request,
+    door_ids: List[int]
+    # titles: Annotated[List[str] | None, Form()] = None Not needed anymore
+):
     for door_id in door_ids:
-        door = Door(number=door_id)
-        doors.add(door)
+        door = Door(number=door_id, title=str(door_id))
+        doors.add(door) 
 
-    return {"success": True}
+    # Return the updated doors list template
+    return templates.TemplateResponse(
+        request=request,
+        name="doors.html",
+        context={"doors": doors}
+    )
 
 @app.get("/save-votes")
 async def save_votes():
