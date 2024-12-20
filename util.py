@@ -15,6 +15,7 @@ class DoorQrGenerator():
 
     def generate_qr(self, door_id: int, hostname: str):
         self.qr.add_data(f"{hostname}/vote/{door_id}")
+        
         self.qr.make(fit=True)
 
         doors_path = 'doors'
@@ -24,6 +25,8 @@ class DoorQrGenerator():
         img = self.qr.make_image(fill_color="black", back_color="white")
 
         img.save(os.path.join(doors_path, f"{door_id}.png"))
+
+        self.qr.clear()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
